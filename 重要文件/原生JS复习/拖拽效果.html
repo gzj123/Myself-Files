@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			position: relative;
+			margin: 550px auto;
+			height: 400px;
+			width: 600px;
+			border: 1px solid red;
+		}
+		.drag {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			height: 50px;
+			width: 50px;
+			background-color: #CCF;
+			border: 1px solid green;
+			cursor: hand;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<div id="drag" class="drag">这是文字</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var wrap = document.getElementById("wrap");
+	var darg = document.getElementById("drag");
+
+	drag.onmousedown = function(e){
+		var e = e || window.event;
+		if (e) {
+			e.preventDefault();
+		} else {
+			window.event.returnValue = false;
+		};
+		console.log("e.clientY:"+e.clientY, e.pageY);
+		var startPosY = e.clientY - drag.offsetTop;
+		var startPosX = e.clientX - drag.offsetLeft;
+		document.onmousemove = function(e){
+			var e = e || window.event;
+			if (e) {
+				e.preventDefault();
+			} else {
+				window.event.returnValue = false;
+			};
+			var endPosY = e.clientY - startPosY;
+			var endPosX = e.clientX - startPosX;
+			if (endPosY >= wrap.clientHeight - drag.offsetHeight) {
+				endPosY = wrap.clientHeight - drag.offsetHeight;
+			};
+			if (endPosY <= 0) {
+				endPosY = 0;
+			};
+			if (endPosX >= wrap.clientWidth - drag.offsetWidth) {
+				endPosX = wrap.clientWidth - drag.offsetWidth;
+			};
+			if (endPosX <= 0) {
+				endPosX = 0;
+			};
+			drag.style.top = endPosY + "px";
+			drag.style.left = endPosX + "px";
+		}	
+	}
+	document.onmouseup = function(){
+		document.onmousemove = null;
+	}
+</script>
+</html>

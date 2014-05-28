@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>网上拔的例子</title>
+	<script type="text/javascript" src="jQuery.js"></script>
+	<style>
+		*{margin: 0;padding: 0;}
+		.box {
+			margin: 25px auto;
+			padding: 5px;
+			width: 600px;
+			height: auto;
+			border: 1px solid #F00;
+		}
+		.main {
+			position: static;
+			width: 600px;
+			height: 80px;
+			margin-bottom: 5px;
+			border: 1px solid blue;
+			background-color: #CFC;
+		}
+		.maindash {
+			position: absolute;
+			width: 600px;
+			height: 80px;
+			margin-bottom: 5px;
+			border: 1px dashed blue;
+			background-color: #ECECEC;
+		}
+		.hide {
+			width: 600px;
+			height: 80px;
+			margin-bottom: 5px;
+		}
+		.dash {
+			position: static;
+			width: 600px;
+			height: 80px;
+			margin-bottom: 5px;
+			border: 1px dashed #F00;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box"> 
+		<div class="main" id="main0">div1</div> 
+		<div class="main" id="main1">div2</div> 
+		<div class="main" id="main2">div3</div> 
+		<div class="main" id="main3">div4</div> 
+		<div class="main" id="main4">div5</div> 
+	</div> 
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var range = {		// 鼠标偏移量
+			x : 0,
+			y : 0
+		}
+		var lastPos = {		// 拖拽对象的四个坐标
+			x : 0,
+			y : 0,
+			x1 : 0,
+			y1 : 0
+		}
+		var tarPos = {		// 目标对象的初始化坐标
+			x : 0,
+			y : 0,
+			x1 : 0,
+			y1 : 0
+		}
+		var theDiv = null;	// 拖拽对象、拖拽状态
+		var move = false;
+		var theDivId = 0,		// 拖拽对象的索引
+			theDivHeight = 0,		
+			theDivHalf = 0,
+			tarFirstY = 0;
+		var tarDiv = null,	// 插入的目标元素的对象、临时的虚线对象
+			tarFirst,
+			tempDiv;
+
+		$(".main").each(function(){
+			$(this).mousedown(function(e){
+				theDiv = $(this);
+				range.x = e.pageX - theDiv.offset().left;	// 获取当前的初始位置
+				range.y = e.pageY - theDiv.offset().top;
+				theDivId = theDiv.index();
+				theDivHeight = theDiv.height();
+				theDivHalf = theDivHeight / 2;
+				move = true;
+				theDiv.attr("class", "maindash");		// 给要拖拽的div添加一个类名，改变样式
+				$("<div class='dash'></div>").insertBefore(theDiv);		// 在要拖拽的对象之前插入一个div
+			})
+		})
+		$(document).mousemove(function(e){
+			if (!move) {
+				return false;
+			} 
+			lastPos.x = e.pageX - range.x;			
+			lastPos.y = e.pageY - range.y;
+			lastPos.y1 = lastPos.y + theDivHeight;
+			theDiv.css({
+				left : lastPos.x + "px",
+				top : lastPos.y + "px"
+			})
+			var $main = $(".main");		// 局部变量：按照重新排列过的顺序 再次获取 各个元素的坐标，
+			tempDiv = $(".dash");
+			$main.each(function(){
+				tarDiv = $(this);
+				tarPos.x = tarDiv.offset().left;
+				tarPos.y = tarDiv.offset().top;
+				tarPos.y1 = tarPos.y + (tarDiv.height() / 2);
+				tarFirst = $main.eq(0);
+				tarFirstY = tarFirst.offset().top + theDivHalf;
+				if (lastPos.y <= tarFirstY) {
+					tempDiv.insertBefore(tarFirst);
+				};
+				if (lastPos.y >= tarPos.y - theDivHeight && lastPos.y1 >= tarPos.y1) {
+					tempDiv.insertAfter(tarDiv);
+				};
+			})
+		}).mouseup(function(e){
+			theDiv.insertBefore(tempDiv);
+			theDiv.attr("class", "main");
+			tempDiv.remove();
+			move = false;
+		})
+	})
+</script>
+</html>

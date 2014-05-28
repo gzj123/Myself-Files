@@ -1,0 +1,69 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>碰壁反弹效果</title>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			position: relative;
+			margin: 30px auto;
+			height: 500px;
+			width: 800px;
+			border: 1px solid red;
+		}
+		.box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 50px;
+			width: 50px;
+			background-color: #CCF;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<div class="box" id="box"></div>
+	</div>
+</body>
+<script>
+	var box = document.getElementById("box");
+	var wrap = document.getElementById("wrap");
+	var timer = null;
+	var moveX = true;
+	var moveY = true;
+	var startX = 0;
+	var startY = 0;
+
+	function move() {
+		if (moveX) {
+			startX +=10;
+			if (startX >= wrap.clientWidth - box.offsetWidth) {
+				moveX = false;
+			};
+		} else {
+			startX -= 10;
+			if (startX <= 0) {
+				moveX = true;
+			};
+		};
+		if (moveY) {
+			startY += 5;
+			if (startY >= wrap.clientHeight - box.offsetHeight) {
+				moveY = false;
+			};
+		} else {
+			startY -= 5;
+			if (startY <= 0) {
+				moveY = true;
+			};
+		};
+		box.style.top = startY + "px";
+		box.style.left = startX + "px";
+	}
+	timer = setInterval(move, 20);
+</script>
+</html>

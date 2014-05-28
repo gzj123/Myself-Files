@@ -1,0 +1,104 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>TAB切换</title>
+	<style>
+		html, body, div, ul, li {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			height: 450px;
+			width: 400px;
+			overflow: hidden;
+		}
+		.wrap div {
+			display: none;
+			height: 400px;
+			width: 400px;
+			font-size: 30px;
+			text-align: center;
+			line-height: 400px;
+		}
+		.wrap ul {
+			list-style-type: none;
+		}
+		.wrap li {
+			float: left;
+			height: 50px;
+			width: 100px;
+			font-size: 30px;
+			text-align: center;
+			background-color: #CCF;
+			line-height: 50px;
+		}
+		.wrap .select {
+			background-color: #CFC;
+		}
+		.wrap .show {
+			display: block;
+			background-color: #CFC;
+		}
+		.clearfix:after {
+			content: "\200B";
+			display: block;
+			height: 0;
+			clear: both;
+		}
+		.clearfix {
+			*zoom: 1;
+		}
+	</style>
+	<script src="jQuery.js"></script>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<ul class="clearfix">
+			<li class="select">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<div class="show">1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</div>
+</body>
+<script>
+	var btn = document.getElementsByTagName("li");
+	var con = document.getElementById("wrap").getElementsByTagName("div");
+	var len = btn.length;
+
+	// for (var i = 0; i < len; i++) {
+	// 	btn[i].index = i;
+	// 	btn[i].onclick = function(){
+	// 		for (var i = 0; i < len; i++) {
+	// 			btn[i].className = "";
+	// 			con[i].className = "";
+	// 		};
+	// 		this.className = "select";
+	// 		con[this.index].className = "show";
+	// 	}
+	// };
+
+	for (var i = 0; i < len; i++) {
+		btn[i].onclick = function(){
+			for (var i = 0; i < len; i ++){
+				if (this == btn[i]) {
+					this.className = "select";
+					con[i].className = "show";
+				} else {
+					btn[i].className = "";
+					con[i].className = "";
+				};
+			}
+		}
+	}
+
+	// $("li").click(function(){
+	// 	$(this).addClass("select").siblings().removeClass("select");
+	// 	$(".wrap div").eq($(this).index()).addClass("show").siblings().removeClass("show");
+	// })
+</script>
+</html>

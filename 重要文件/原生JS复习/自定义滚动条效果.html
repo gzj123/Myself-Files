@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>自定义滚动条</title>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		.wrapper {
+			margin: 20px auto;
+			position: relative;
+			height: 400px;
+			width: 600px;
+		}
+		.wrap {
+			height: 400px;
+			width: 600px;
+			overflow: auto;
+		}
+		.con {
+			height: 800px;
+			width: 580px;
+		}
+		.con img {
+			height: 100%;
+			width: 100%;
+		}
+		.scrollbar {
+			position: absolute;
+			top: 15px;
+			right: 1px;
+			height: 370px;
+			width: 15px;
+			background-color: #FFF;
+		}
+		.up {
+			position: absolute;
+			right: 2px;
+			height: 15px;
+			width: 15px;
+			background: url("images/scroll-1.jpg");
+			cursor: pointer;
+		}
+		.down {
+			position: absolute;
+			right: 2px;
+			bottom: 0;
+			height: 15px;
+			width: 15px;
+			background: url("images/scroll-2.jpg");
+			cursor: pointer;
+		}
+		.drag {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100px;
+			width: 15px;
+			background-color: #CCC;
+			cursor: move;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div id="scrollBar" class="scrollbar">
+			<div id="drag" class="drag"></div>
+		</div>
+		<div id="up" class="up"></div>
+		<div id="down" class="down"></div>
+		<div id="wrap" class="wrap">
+			<div id="con" class="con">
+				<img src="images/123.jpg" alt="" title="">
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var drag = document.getElementById("drag");
+	var wrap = document.getElementById("wrap");
+	var scrllBar = document.getElementById("scrollBar");
+	var up = document.getElementById("up");
+	var down = document.getElementById("down");
+	var timer = null;
+	var num1 = (scrollBar.clientHeight - drag.offsetHeight) /  (con.offsetHeight - wrap.clientHeight) ;
+	var num = (con.offsetHeight - wrap.clientHeight) / (scrollBar.clientHeight - drag.offsetHeight) ;
+
+	down.onmousedown = function(){
+		if (timer) {
+			clearInterval(timer)
+		};
+		timer = setInterval(runDown, 20);
+	}
+	down.onmouseup = function(){
+		clearInterval(timer);
+	}
+	up.onmousedown = function(){
+		if (timer) {
+			clearInterval(timer)
+		};
+		timer = setInterval(runUp, 20);
+	}
+	up.onmouseup = function(){
+		clearInterval(timer);
+	}
+
+	function runDown(){
+		var startPos = drag.offsetTop;
+		startPos+=5;
+		if (startPos >= scrollBar.clientHeight - drag.offsetHeight) {
+			startPos = scrollBar.clientHeight - drag.offsetHeight;
+		};
+		drag.style.top = startPos + "px";
+		wrap.scrollTop = drag.offsetTop * num;
+	}
+	function runUp(){
+		var startPos = drag.offsetTop;
+		startPos-=5;
+		if (startPos <= 0) {
+			startPos = 0;
+		};
+		drag.style.top = startPos + "px";
+		wrap.scrollTop = drag.offsetTop * num;
+	}
+
+	scrollBar.onclick = function(e){
+		var e= e || window.event;
+		var pos = e.clientY -  drag.offsetHeight / 2 - 35;
+		if (pos <= drag.offsetHeight / 2) {
+			pos = 0;
+		};
+		if (pos >= scrollBar.clientHeight - drag.offsetHeight / 2) {
+			pos = scrollBar.clientHeight - drag.offsetHeight / 2;
+		};
+		drag.style.top = pos + "px";
+		wrap.scrollTop = drag.offsetTop * num;
+	}
+
+	wrap.onscroll = function(e){
+		if (event.preventDefault()) {
+			event.preventDefault();
+		} else {
+			window.event.returnValue = false;
+		};
+		drag.style.top = (wrap.scrollTop * num1) + "px";
+	}
+
+	drag.onmousedown = function(e){
+		var e = e || window.event;
+		if (event.preventDefault()) {
+			event.preventDefault();
+		} else {
+			window.event.returnValue = false;
+		};
+		var startPos = e.clientY - drag.offsetTop;
+		document.onmousemove = function(e){
+			if (event.preventDefault()) {
+				event.preventDefault();
+			} else {
+				window.event.returnValue = false;
+			};
+			var e = e || window.event;
+			var endPos = e.clientY - startPos;
+			if (endPos <= 0) {
+				endPos = 0;
+			};
+			if (endPos >= scrollBar.clientHeight - drag.offsetHeight) {
+				endPos = scrollBar.clientHeight - drag.offsetHeight;
+			};
+			drag.style.top = endPos + "px";
+			wrap.scrollTop = drag.offsetTop * num;
+		}
+	}
+	document.onmouseup = function(){
+		document.onmousemove = null;
+	}
+</script>
+</html>

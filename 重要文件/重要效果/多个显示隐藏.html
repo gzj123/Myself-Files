@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<style>
+	*{margin: 0;padding: 0;}
+	.wrap {
+		margin: 50px auto;
+		width: 480px;
+		height: 260px;
+		background-color: #CCC;
+	}
+	.wrap div {
+		position: relative;
+		margin: 10px 20px 20px 0;
+		float: left;
+		height: 100px;
+		width: 100px;
+		background-color: #FCF;
+		cursor: pointer;
+	}
+	span {
+		position: absolute;
+		bottom: 0;
+		height: 0px;
+		width: 100px;
+		background-color: #CFC;
+	}
+	</style>
+	<script type="text/javascript" src="jQuery.js"></script>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+	</div>
+</body>
+<script type="text/javascript">
+	var divs = document.getElementById("wrap").getElementsByTagName("div");
+	var span = document.getElementsByTagName("span");
+	var timer = 0;
+	var timer2 = 0;
+	var nowNum = 0;
+	var nowNum2 = 0;
+
+	upDown();
+
+	function upDown(){
+		for (var i = 0; i < divs.length; i++) {
+			divs[i].index = i;
+			divs[i].onmouseover = function(){
+				clearInterval(timer2);
+				if (timer) {
+					clearInterval(timer);
+				};
+				nowNum = this.index;
+				timer = setInterval(function(){
+					var start = span[nowNum].clientHeight;
+					console.log(start);
+					if (start >= 30) {
+						clearInterval(timer);
+					} else {
+						start++;
+					};
+					for (var i = 0; i < span.length; i++) {
+						if (i == nowNum) {
+							span[nowNum].style.height = start + "px";
+						} else {
+							var end = span[i].clientHeight;
+							end --;
+							span[i].style.height = end + "px";
+						};
+					};
+				}, 20);
+			} 
+			divs[i].onmouseout = function(){
+				clearInterval(timer);
+				if (timer2) {
+					clearInterval(timer2);
+				};
+				timer2 = setInterval(function(){
+					for (var i = 0; i < divs.length; i++) {
+						var endPos = span[i].offsetHeight;
+						endPos--;
+						span[i].style.height = endPos + "px";
+					}
+				}, 20);
+			}
+		};
+	}
+		// for (var i = 0; i < divs.length; i++) {
+		// 	divs[i].index = i;
+		// 	divs[i].onmouseover = function(){
+		// 		clearInterval(timer2);
+		// 		if (timer) {
+		// 			clearInterval(timer);
+		// 		};
+		// 		nowNum = this.index;
+		// 		timer = setInterval(function(){
+		// 			var start = span[nowNum].clientHeight;
+		// 			if (start >= 20) {
+		// 				clearInterval(timer);
+		// 			} else {
+		// 				start++;
+		// 			};
+		// 			for (var i = 0; i < span.length; i++) {
+		// 				if (i == nowNum) {
+		// 					span[nowNum].style.height = start + "px";
+		// 				} else {
+		// 					var end = span[i].clientHeight;
+		// 					end --;
+		// 					span[i].style.height = end + "px";
+		// 				};
+		// 			};
+		// 		}, 20);
+		// 	} 
+		// 	divs[i].onmouseout = function(){
+		// 		clearInterval(timer);
+		// 		if (timer2) {
+		// 			clearInterval(timer2);
+		// 		};
+		// 		timer2 = setInterval(function(){
+		// 			for (var i = 0; i < divs.length; i++) {
+		// 				var endPos = span[i].offsetHeight;
+		// 				endPos--;
+		// 				span[i].style.height = endPos + "px";
+		// 			}
+		// 		}, 20);
+		// 	}
+		// };
+
+	// function set(){
+	// 	for (var i = 0; i < divs.length; i++) {
+	// 		var endPos = span[i].offsetHeight;
+	// 		endPos--;
+	// 		span[i].style.height = endPos + "px";
+	// 	};
+	// }
+
+	// function change(){
+	// 	var start = span[nowNum].clientHeight;
+	// 	if (start >= 20) {
+	// 		clearInterval(timer);
+	// 	} else {
+	// 		start++;
+	// 	};
+	// 	for (var i = 0; i < span.length; i++) {
+	// 		if (i == nowNum) {
+	// 			span[nowNum].style.height = start + "px";
+	// 		} else {
+	// 			var end = span[i].clientHeight;
+	// 			end --;
+	// 			span[i].style.height = end + "px";
+	// 		};
+	// 	};
+	// }
+
+</script>
+</html>

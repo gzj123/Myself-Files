@@ -1,0 +1,165 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>原生JS-大图滚动</title>
+	<style>
+		html, body, div, span, img, ul, li {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			margin: 50px auto;
+			height: 100px;
+			width: 100px;
+			border: 5px solid #CCC;
+			overflow: hidden;
+		}
+		.wrap img {
+			height: 100px;
+			width: 100px;
+		}
+		ul {
+			margin: 0 auto;
+			height: 20px;
+			width: 210px;
+		}
+		li {
+			float: left;
+			margin: 0 5px 0 0;
+			height: 20px;
+			width: 30px;
+			text-align: center;
+			background-color: #CCF;
+			cursor: pointer;
+		}
+		.left, .right {
+			position: absolute;
+			height: 30px;
+			width: 30px;
+			background-color: #CCC;
+		}
+		.left {
+			top: 85px;
+			left: 570px;
+		}
+		.right {
+			top: 85px;
+			right: 570px;
+		}
+	</style>
+</head>
+<body>
+	<div id="left" class="left"></div>
+	<div id="right" class="right"></div>
+	<div id="wrap" class="wrap">
+		<table cellpadding="0" cellspacing="0">
+			<tbody>
+				<tr>
+					<td><img src="images/dd_1.png" alt=""></td>
+					<td><img src="images/dd_2.png" alt=""></td>
+					<td><img src="images/dd_3.png" alt=""></td>
+					<td><img src="images/dd_4.png" alt=""></td>
+					<td><img src="images/dd_5.png" alt=""></td>
+					<td><img src="images/dd_6.png" alt=""></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+	</ul>
+</body>
+<script>
+	var wrap = document.getElementById("wrap");
+	var btn = document.getElementsByTagName("li");
+	var left = document.getElementById("left");
+	var right = document.getElementById("right");
+	var timer = null;
+	var timer1 = null;
+	var len = btn.length;
+	var nowNum = 0;
+	var imgWidth = 100;
+	var startPos = 0;
+	var endPos;
+
+
+	for (var i = 0; i < len; i++) {
+		btn[i].index = i;
+		btn[i].onclick = function(){
+			nowNum = this.index;
+			// console.log(nowNum);
+			if (timer) {
+				clearInterval(timer);
+			};
+			if (timer1) {
+				clearInterval(timer1)
+			};
+			timer = setInterval(run, 20);
+			timer1 = setInterval(autoRun, 2000);	// 使点击的时候autoRun保持运动
+		}
+	};
+
+	function run(){
+		endPos = nowNum*imgWidth;
+		var step = (endPos - startPos)/20;
+		if (step > 0 ) {
+			step = Math.ceil(step);
+		};
+		if (step < 0) {
+			step = Math.floor(step);
+		};
+		if (step == 0) {
+			clearInterval(timer);
+		};
+		startPos += step;
+		wrap.scrollLeft = startPos;
+	}
+	timer1 = setInterval(autoRun, 1000);	// 让图片在未做任何操作的时候自动循环滚动
+	function autoRun(){
+		nowNum++;
+		if (nowNum > 5) {
+			nowNum = 0;
+		};
+		if (nowNum < 0) {
+			nowNum = 5;
+		};
+		timer = setInterval(run, 20);	// 将autoRun里面的索引值赋给run里面的endPos，调用run让图片自动循环
+	}
+
+	right.onclick = function(){
+		if (timer) {
+			clearInterval(timer);
+		};
+		if (timer1) {
+			clearInterval(timer1)
+		};
+		nowNum++;
+		if (nowNum == len) {
+			nowNum = 0;
+		};
+		wrap.scrollLeft = nowNum*imgWidth;
+		timer = setInterval(run, 20);
+		timer1 = setInterval(autoRun, 2000);	// 当点击时，延迟2S让计时器触发，若没加这个计时器，会造成混乱
+	}
+	left.onclick = function(){
+		if (timer) {
+			clearInterval(timer);
+		};
+		if (timer1) {
+			clearInterval(timer1)
+		};
+		nowNum--;
+		if (nowNum == 0) {
+			nowNum = len;
+		};
+		wrap.scrollLeft = nowNum*imgWidth;
+		timer = setInterval(run, 20);
+		timer1 = setInterval(autoRun, 2000);
+	}
+</script>
+</html>

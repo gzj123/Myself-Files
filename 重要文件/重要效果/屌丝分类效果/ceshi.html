@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>`H5</title>
+	<script type="text/javascript" src="jQuery.js"></script>
+	<style>
+		.wrap {
+			position: relative;
+			margin: 0 auto;
+			height: 320px;
+			width: 320px;
+			background-color: #CCC;
+		}
+		.wrap div {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			text-align: center;
+			line-height: 100px;
+			font-size: 30px;
+			font-weight: bolder;
+			cursor: pointer;
+			-webkit-backface-visibility: hidden;
+		}
+		.test1 {
+			top: 0;
+			left: 0;
+			background: #CFC;
+		}
+		.test2 {
+			top: 0;
+			left: 110px;
+			background-color: #FFC;
+		}
+		.test3 {
+			top: 0;
+			left: 220px;
+			background-color: #dcf;
+		}
+		.test4 {
+			top: 110px;
+			left: 0;
+			background-color: #FCD;
+		}
+		.test5 {
+			top: 110px;
+			left: 110px;
+			background: #DFF;
+		}
+		.test6 {
+			top: 110px;
+			left: 220px;
+			background-color: #BCD;
+		}
+		.test7 {
+			top: 220px;
+			left: 0;
+			background-color: #ADC;
+		}
+		.test8 {
+			top: 220px;
+			left: 110px;
+			background-color: #BDC;
+		}
+		.test9 {
+			top: 220px;
+			left: 220px;
+			background-color: #FDC;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="test1">1</div>
+		<div class="test1-1"></div>
+		<div class="test2">2</div>
+		<div class="test3">3</div>
+		<div class="test4">4</div>
+		<div class="test5">5</div>
+		<div class="test6">6</div>
+		<div class="test7">7</div>
+		<div class="test8">8</div>
+		<div class="test9">9</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".test1").css({
+			"transition" : "all 1s",
+			"transform" : "rotateY(180deg)"
+		})
+	})
+</script>
+</html>

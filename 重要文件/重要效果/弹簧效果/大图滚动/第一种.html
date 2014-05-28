@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5course</title>
+	<link rel="stylesheet" href="reset.css">
+	<script src="js/core.js"></script>
+	<style>
+		.imgview{
+			width: 255px;
+			height: 400px;
+			margin: 50px auto;
+			border: 10px solid red;
+			overflow: hidden;
+		}
+		.imgview img{
+			width: 255px;
+			height: 400px;
+		}
+		.imgview-nav{
+			width: 260px;
+			margin: 10px auto;
+			border: 1px solid red;
+			list-style-type: none;
+		}
+		.imgview-nav li{
+			float: left;
+			width: 15px;
+			height: 15px;
+			border:  1px solid blue;
+			margin: 10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="imgview" id="imgView">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td><img src="classma/1.jpg" alt=""></td>
+					<td><img src="classma/2.jpg" alt=""></td>
+					<td><img src="classma/3.jpg" alt=""></td>
+					<td><img src="classma/4.jpg" alt=""></td>
+				</tr>
+			</table>
+		</div>
+		<ul class="imgview-nav" id="imgviewNav">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>		
+	</div>
+	<script>
+		var imgs = document.getElementById('imgView');
+		var btn = document.getElementsByTagName('li');
+		var timer = null;
+		var len = btn.length;
+		var num = 0;
+		var timer2 = null;
+
+		timer = setInterval(change, 3000);
+
+		function change() {
+			num++;
+			if (num == len) {
+				num = 0;
+			};
+			console.log(num);
+			move(num * 255);
+		}
+		function move(stop) {
+			var start = imgs.scrollLeft;
+			var stop = stop;
+			var step = 0;
+			var stepMax = 25;
+			timer2 = setInterval(moveT,20);
+			console.log(stop);
+			function moveT(){
+				step++;
+				if (step == stepMax) {
+					clearInterval(timer2);
+				};
+				imgs.scrollLeft = Tween.Bounce.easeOut(step,start,stop - start,stepMax);
+			}
+		}
+
+
+
+
+
+		var Tween = {
+		Bounce: {
+			easeIn: function(t,b,c,d){
+				return c - Tween.Bounce.easeOut(d-t, 0, c, d) + b;
+			},
+			easeOut: function(t,b,c,d){
+				if ((t/=d) < (1/2.75)) {
+					return c*(7.5625*t*t) + b;
+				} else if (t < (2/2.75)) {
+					return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+				} else if (t < (2.5/2.75)) {
+					return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+				} else {
+					return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+				}
+			},
+			easeInOut: function(t,b,c,d){
+				if (t < d/2) return Tween.Bounce.easeIn(t*2, 0, c, d) * .5 + b;
+				else return Tween.Bounce.easeOut(t*2-d, 0, c, d) * .5 + c*.5 + b;
+			}
+		}
+	}
+	</script>
+</body>
+</html>

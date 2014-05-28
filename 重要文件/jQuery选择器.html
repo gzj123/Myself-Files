@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery选择器</title>
+	<script src="jQuery.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<ul>
+			<li>
+				<div id="box1">1<div>text</div></div>
+				
+			</li>
+			<li>
+				<div class="box" id="box2">3class=box</div>
+			</li>
+			<li>
+				<div id="box3">4</div>
+			</li>
+			<li>
+				<div id="box4">5</div>
+			</li>
+			<li>
+				<div id="box5">6</div>
+				
+			</li>
+		</ul>
+		<div></div>
+		<div>
+			7 <span>123</span>	
+		</div>
+		<div>8</div>
+		<div>9</div>
+	</div>
+</body>
+<script>
+	// console.log($("#wrap"));
+	// console.log($(".box"));
+	// 
+	// console.log($("ul div"));
+	// console.log($("div, ul, li"));
+	// console.log($("li>div>div"));	// 选取子代元素
+	// console.log($("ul+div"));	// ul后面的第一个同级元素
+	// console.log($("ul~div"));		// ul后面的所有同级元素
+
+	// 基本过滤选择器
+	// console.log($("li:first"));		// 选取所有li中的第一个li元素
+	// console.log($("li:last"));		// 选取所有li中的最后一个li元素
+	// console.log($("div:even"));		// 获取所有的div ，索引值为偶数的div，从0开始
+	// console.log($("div:odd"));		// 获取所有div ，索引值为奇数的div
+	// console.log($("div:not(.box)"));	// 获取除类名为box的所有div元素
+	// console.log($("div:eq(3)"));		// 选取索引值为3的div元素
+	// console.log($("div:lt(3)"));		// 选取索引值小于3的所有div元素
+	// console.log($("div:gt(3)"));		// 选取索引值大于3的所有div元素
+
+	// 内容选择过滤器
+	// console.log($("div:contains('text')"));		// 选取所有div中包含有“text”这段文本的div，嵌套关系也算
+	console.log($("div:empty"));		// 选取div中没有 子元素 以及 文本 的div
+	console.log($("div:has(span)"));	// 选取div中含有span标签的div元素，包括其父级元素也算
+	console.log($("div:parent"));		// 选取div中含有子元素以及文本的div
+
+	$("#wrap").click(function(){
+			$(this).css("background", "#CCC");
+			$("#box1 div").css("background-color", "red");
+			$("#box2").css("background", "blue");
+		})
+
+	// jQuery添加节点 —— append() 向每个匹配元素内部追加内容。
+	// appendTo()  将所有匹配元素追加到指定的元素当中（与append()相反）
+	$(function(){
+		var text = $("<div class='test'>jQuery——DOM添加节点</div>");
+		$("body").append(text);
+	})
+	// 原生JS添加节点
+	var newEle = document.createElement("div");
+	var newText = document.createTextNode("原生JS添加节点");
+	newEle.appendChild(newText);
+	document.body.appendChild(newEle);
+
+</script>	
+</html>

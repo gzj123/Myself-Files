@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>图片滚动效果</title>
+	<style>
+		*{margin: 0; padding: 0;}
+		.wrap {
+			margin: 50px auto;
+
+			height: 100px;
+			width: 400px;
+			border: 1px solid red;
+			overflow: hidden;
+		}
+		.box {
+			height: 100px;
+			width: 800px;
+		}
+		.box img {
+			float: left;
+			height: 100px;
+			width: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<div id="box" class="box">
+			<img src="images/dd_1.png" alt="">
+			<img src="images/dd_2.png" alt="">
+			<img src="images/dd_3.png" alt="">
+			<img src="images/dd_4.png" alt="">
+		</div>
+	</div>
+</body>
+<script>
+	var wrap = document.getElementById("wrap");
+	var box = document.getElementById("box");
+	var timer = null;
+	box.innerHTML+=box.innerHTML;
+	timer = setInterval(run, 20);
+	function run(){
+		wrap.scrollLeft += 5;
+		if (wrap.scrollLeft >= box.offsetWidth - wrap.clientWidth) {
+			wrap.scrollLeft = 0;
+		};
+	}
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>DOM节点</title>
+	<style>
+		.wrap {
+		/*	height: 200px;*/
+			width: 400px;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap1" name="test1">wrap1</div>
+	<div style="height: 200px;" id="wrap" name="test2" class="wrap">
+		<div id="wrap-1" name="wrap_1">wrap-1</div>
+		<div id="wrap-2" name="wrap_2">wrap-2</div>
+	</div>
+	<div name="test3" id="wrap2">wrap2</div>
+</body>
+<script>
+	var wrap = document.getElementById("wrap");
+	var wrap_1 = document.getElementById("wrap-1"); 
+	var wrap_2 = document.getElementById("wrap-2");
+	// console.log(wrap.childNodes);	// 回车属于文本节点
+	// console.log(wrap.parentNode);
+	// console.log(wrap.children);		// children是标签类型的节点
+	// console.log(wrap.nextSibling);	// 下一个兄弟节点（回车也算）
+	// console.log(wrap.previousSibling);	// 上一个兄弟节点
+	// console.log(wrap.firstChild);		// 第一个子节点
+	// console.log(wrap.lastChild);		// 最后一个子节点
+
+	// 创建添加节点
+
+	// var newText = document.createTextNode("document.createTextNode创建文本节点 \n document.createElement创建标签节点");
+	// var newEle = document.createElement("p");	// creatElement() 创建标签节点；
+	// newEle.appendChild(newText);			// 将文本节点添加到标签节点里面去
+	// // wrap.appendChild(newEle);			// 将创建的含内容的标签节点添加到指定节点里面的末尾插入
+	// wrap_1.appendChild(newEle);
+	// wrap.insertBefore(newEle, wrap_2);		// 父节点.insertbefore(插入的节点，目标节点); 将要插入的节点插入到目标节点之前。
+	// 替换节点 
+	// var newDiv = document.createElement("div");
+	// var newP = document.createTextNode("replaceChild(newNode, oldNode); 替换节点");
+	// newDiv.appendChild(newP);
+	// wrap.replaceChild(newDiv, wrap_2);		// 父节点.replaceChild(newNode, oldNode); 
+	// 删除节点
+	// wrap.removeChild(wrap_2);					// 父节点.removeChild(targetNode);
+	// 复制节点
+	// wrap.cloneNode(true);
+
+	// 获取节点属性
+	console.log(wrap.getAttribute("name"));		// 获取节点的name 属性
+	wrap.setAttribute('name', 'special');		// 设置节点的name 属性
+	wrap_1.setAttribute("id", "abc");			// 设置节点的id属性
+	wrap_2.removeAttribute("name");				// 移除节点的name属性
+
+
+</script>
+</html>

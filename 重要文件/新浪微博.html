@@ -1,0 +1,142 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新浪微博添加模块+缓速删除效果</title>
+	<style>
+		html, body, div, input {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			margin: 0 auto;
+			width: 600px;
+			height: 100%;
+			border: 1px solid red;
+		}
+		.input {
+			height:150px;
+			width: 600px;
+		}
+		.btn {
+			float: right;
+			height: 30px;
+			width: 80px;
+		}
+		.message {
+			overflow: auto;
+		}
+		.message div {
+			position: relative;
+			margin: 0 0 5px 0 ;
+			min-height: 50px;
+			max-height: 200px;
+			background-color: yellow;
+			word-break:break-all;
+			overflow: auto;
+		}
+		.message div p {
+			width: 600px;
+			line-height: 30px;
+		}
+		.message div span {
+			position: absolute;
+			top: 5px;
+			right: 10px;
+			height: 15px;
+			width: 15px;
+			background: red; 
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<p>发言请遵守社区公约， <span id="change">还可以输入 <span id="num">140</span>  字</span></p>
+		<form action="" method="get">
+			<div class="input">
+				<textarea id="text" class="text" name="" rows="7" cols="82" onkeyup="checkLength(this)"></textarea>
+				<input id="btn" class="btn" type="button" name="" value="发布">
+			</div>
+		</form>
+		<div id="message" class="message"></div>
+	</div
+</body>
+<script>
+	var message = document.getElementById("message");
+	var btn = document.getElementById("btn");
+	var text = document.getElementById("text");
+	var delSpan = document.getElementsByTagName("span");
+	var change = document.getElementById("change");
+	var num = document.getElementById("num");
+
+	window.onload = function(){
+		if (text.value.length == 0) {
+				btn.disabled = true;
+		};
+	}
+
+	btn.onclick = function(){
+		var newDiv = document.createElement("div");		// 创建div标签
+		var newText = document.createTextNode(text.value);   // 把textarea里面输入的内容赋值给newtext
+		var newP = document.createElement("p");			// 创建一个P 用于接收textarea输入的内容
+		var delBtn = document.createElement("span");    // 创建一个span 按钮
+		var timer = null;
+
+		message.insertBefore(newDiv, message.firstChild);		// 在message 这个块中创建div 
+		newDiv.appendChild(newP);		// 在创建的newDiv 中添加 textarea 里面输入的内容
+		newP.appendChild(newText);
+		newDiv.appendChild(delBtn);						// 把span 按钮添加到新创建的div 里面
+		for (var i = 0; i < delSpan.length; i++) {
+			delSpan[i].onclick = function(){
+				// message.removeChild(this.parentNode);
+				// console.log(this.parentNode);
+				var parent = this.parentNode				// 查找父节点
+				var startPos = parseInt(document.defaultView.getComputedStyle(parent).height);
+				timer = setInterval(run, 20);
+				console.log(startPos);
+				function run(){
+					startPos -= 5;
+					var endPos = 150;
+					var step = (endPos - startPos)/20;
+					if (step > 0) {
+						step = Math.floor(step);
+					};
+					if (step < 0) {
+						step = Math.ceil(step);
+					};
+					if (step == 0 ) {
+						clearInterval(run);
+					};
+					startPos += step;
+					parent.style.height = startPos + "px";
+					if (startPos <= 55 ) {
+						message.removeChild(parent);
+						clearInterval(timer);
+					};
+				}
+			}
+		}
+	}
+
+	/*
+	 * 功能：检测文本框输入的字符的总数以及剩余可输入字数
+	 * 用到 onkeyup 事件绑定在 btn 上面
+	 *
+	 */
+	function checkLength(which){
+		var maxChars = 140;
+		var lastNum = maxChars - which.value.length;    // 得出还剩下多少个字可以输入
+		if (which.value.length > maxChars) {
+			var overNum = which.value.length - maxChars;
+			change.innerHTML = "已经超过" + overNum + "字";
+			btn.disabled = true;
+		}
+		if (which.value.length > 0 && which.value.length <= maxChars) {
+			change.innerHTML = "还可以输入" + lastNum + "字";
+			btn.disabled = false;
+		};
+		
+		//num.innerHTML = lastNum.toString();
+	}
+	
+</script>
+</html>

@@ -1,0 +1,33 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>时间对象</title>
+</head>
+<body>
+
+</body>
+<script>
+	var date = new Date();
+	console.log(date);
+	console.log(new Date(2013, 0, 13));       // 月份要从 0 开始到 11
+	console.log(new Date(2013, 1, 14));
+	console.log(new Date(2013, 2, 14));
+	console.log(new Date(2013, 3, 14));
+	console.log(new Date("oct 15, 2013"));
+	// date.setMonth(2);
+	// console.log(date.getMonth());
+
+	var t1 = date.getDate();
+	console.log(t1);
+	var t2 = date.getMonth()
+	console.log(t2);
+	var t3 = date.getFullYear();
+	console.log(t3);
+	var t4 = date.getTime();
+	console.log(t4);
+	var t5 = date.getHours();
+	console.log(t5);
+	var t6 = date.getMinutes();
+	console.log(t6);
+</script>
+</html>

@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>新浪微博之输入框限制模式</title>
+	<style>
+		html, body, div, input {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			margin: 0 auto;
+			width: 600px;
+			height: 100%;
+			border: 1px solid red;
+		}
+		.input {
+			/*margin: 50px 0 0 0;*/
+			height:150px;
+			width: 600px;
+		}
+		.btn {
+			float: right;
+			height: 30px;
+			width: 80px;
+		}
+		.message {
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<p>发言请遵守社区公约， <span id="change">还可以输入 <span id="num">140</span>  字</span></p>
+		<form action="" method="get">
+			<div class="input">
+				<textarea id="text" class="text" rows="7" cols="82" onkeyup="checkLength(this)"></textarea>
+				<input id="btn" class="btn" type="button" name="" value="发布">
+			</div>
+		</form>
+		<div id="message" class="message"></div>
+	</div
+</body>
+<script>
+	var btn = document.getElementById("btn");
+	var num = document.getElementById("num");
+	var text = document.getElementById("text");
+	var change = document.getElementById("change");
+	console.log(num);
+	window.onload = function(){
+		if (text.value.length == 0) {
+				btn.disabled = true;
+		};
+	}
+
+	/*
+	 * 功能：检测文本框输入的字符的总数以及剩余可输入字数
+	 * 用到 onkeyup 事件绑定在 btn 上面
+	 *
+	 */
+	function checkLength(which){
+		var maxChars = 140;
+		if (which.value.length > maxChars) {
+			var overNum = which.value.length - maxChars;
+			change.innerHTML = "已经超过" + overNum + "字";
+			btn.disabled = true;
+		}
+		if (which.value.length > 0 && which.value.length <= maxChars) {
+			btn.disabled = false;
+		};
+		var lastNum = maxChars - which.value.length;    // 得出还剩下多少个字可以输入
+		num.innerHTML = lastNum.toString();
+	}
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<script type="text/javascript" src="code.js"></script>
+	<style>
+		*{margin: 0;padding: 0;}
+		.test {
+			position: absolute;
+			top: 50px;
+			left: 100px;
+			height: 200px;
+			width: 200px;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" value="dianji" id="btn">
+	<div id="test" class="test" style="background-color: green;" name="name1"></div>
+</body>
+<script type="text/javascript">
+	var test = document.getElementById("test");
+	var click = true;
+	var start1 = 0;
+	var start2 = 0;
+	var timer1 = null;
+	var timer2 = null;
+	var btn = document.getElementById("btn");
+
+	btn.onclick = function(){
+		if (click) {
+
+		};
+	}
+
+	// test.onclick = function(){
+	// 	if (timer1) {
+	// 		clearInterval(timer1);
+	// 	};
+	// 	if (timer2) {
+	// 		clearInterval(timer2);
+	// 	};
+	// 	if (click == true) {
+	// 		var timer1 = setInterval(function(){
+	// 			var left_1 = 0;;
+	// 			if (document.defaultView) {
+	// 				left_1 = parseInt(document.defaultView.getComputedStyle(test).left);
+	// 			} else {
+	// 				left_1 = test.currentStyle["height"];
+	// 			}
+	// 			left_1 +=5;
+	// 			if (left_1 >=500) {
+	// 				clearInterval(timer1);
+	// 			};
+	// 			console.log(left_1);
+	// 			test.style.left = left_1 + "px";
+	// 		}, 20)
+	// 		click = false;
+	// 	} else {
+	// 		var timer2 = setInterval(function(){
+	// 			var left_2 = 0;;
+	// 			if (document.defaultView) {
+	// 				left_2 = parseInt(document.defaultView.getComputedStyle(test).left);
+	// 			} else {
+	// 				left_2 = test.currentStyle["height"];
+	// 			}
+	// 			left_2 -=5;
+	// 			if (left_2 <= 100) {
+	// 				clearInterval(timer2);
+	// 			};
+	// 			console.log(left_2);
+	// 			test.style.left = left_2 + "px";
+	// 		}, 20)
+	// 		click = true;
+	// 	}
+	// 	// click = click ? false : true;	
+	// }
+
+</script>
+</html>

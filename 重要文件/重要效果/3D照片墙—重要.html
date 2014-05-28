@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<script type="text/javascript" src="jQuery.js"></script>
+	<style>
+		*{margin: 0;padding: 0;}
+		.wrap {
+			margin: 50px auto;
+			height: 200px;
+			width: 800px;
+			background: #CCC;
+/*			-webkit-perspective: 1000px;
+			-webkit-transform-style: preserve-3d;*/
+		}
+		.content {
+			position: relative;
+			margin: 0 auto;
+			-webkit-transition: all 1s;
+			width: 700px;
+			height: 200px;
+			-webkit-transform-style: preserve-3d;
+		}
+		.wrap img {
+			position: absolute;
+			top: 50px;
+			left: 250px;
+			height: 100px;
+			width: 128px;
+		}
+		img:nth-child(1) {
+			-webkit-transform: rotateY(0deg) translateZ(195.839px);
+		}
+		img:nth-child(2) {
+			-webkit-transform: rotateY(40deg) translateZ(195.839px);
+		}
+		img:nth-child(3) {
+			-webkit-transform: rotateY(80deg) translateZ(195.839px);
+		}
+		img:nth-child(4) {
+			-webkit-transform: rotateY(120deg) translateZ(195.839px);
+		}
+		img:nth-child(5) {
+			-webkit-transform: rotateY(160deg) translateZ(195.839px);
+		}
+		img:nth-child(6) {
+			-webkit-transform: rotateY(200deg) translateZ(195.839px);
+		}
+		img:nth-child(7) {
+			-webkit-transform: rotateY(240deg) translateZ(195.839px);
+		}
+		img:nth-child(8) {
+			-webkit-transform: rotateY(280deg) translateZ(195.839px);
+		}
+		img:nth-child(9) {
+			-webkit-transform: rotateY(320deg) translateZ(195.839px);
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div id="content" class="content">
+			<img src="1.jpg" alt="" title="">
+			<img src="2.jpg" alt="" title="">
+			<img src="3.jpg" alt="" title="">
+			<img src="7.jpg" alt="" title="">
+			<img src="5.jpg" alt="" title="">
+			<img src="6.jpg" alt="" title="">
+			<img src="7.jpg" alt="" title="">
+			<img src="8.jpg" alt="" title="">
+			<img src="1.jpg" alt="" title="">
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var imgs = document.getElementsByTagName("img");
+	var content = document.getElementById("content");
+	console.log(content)
+	var timer = null;
+	var num = 0;
+	window.onload = function(){
+		timer = setInterval(rotate, 1000);
+	}
+	function rotate(){
+		// var num = 0;
+		// if (num < 8) {
+		// 	num++;
+		// } else {
+		// 	num = 0;
+		// }
+		num++;
+		content.style.webkitTransform = "rotateY(" + 40*num + "deg)";
+	}
+</script>
+</html>

@@ -1,0 +1,58 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>原生JS-缓速运动</title>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		.test {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			background-color: #CCF;
+		}
+		.line {
+			position: absolute;
+			left: 600px;
+			top: 0;
+			height: 100px;
+			width: 1px;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="test" class="test"></div>
+	<div class="line"></div>
+</body>
+<script>
+	var test = document.getElementById("test");
+	var startPos = 0;
+	var endPos = 600;
+	var timer = null;
+
+	test.onclick = function(){
+		if(timer) {
+			clearInterval(timer);
+		}
+		timer = setInterval(run, 20);
+	}
+	function run(){
+		startPos++;
+		var step = (endPos - startPos)/20;
+		if (step > 0){
+			step = Math.ceil(step);
+		}
+		if (step < 0){
+			step = Math.floor(step);
+		}
+		if (step == 0){
+			clearInterval(timer);
+		}
+		startPos += step;
+		test.style.left = startPos + "px";
+	}
+</script>
+</html>

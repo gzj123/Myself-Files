@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<script type="text/javascript" src="jQuery.js"></script>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		div {
+			height: 200px;
+			width: 200px;
+			font-size: 30px;
+			font-weight: bolder;
+			text-align: center;
+			line-height: 200px;
+		}
+		.wrap {
+			margin: 50px auto;
+			position: relative;
+			/*background-color: #CCC;*/
+			-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+					-ms-transform-style: preserve-3d;
+						transform-style: preserve-3d;
+			-webkit-transform: rotateX(70deg) rotateY(100deg);
+				-moz-transform: rotateX(70deg) rotateY(100deg);
+					-ms-transform: rotateX(70deg) rotateY(100deg);
+						transform: rotateX(70deg) rotateY(100deg);
+/*			-webkit-perspective: 1200px;*/
+			-webkit-transition: all 2s;
+				-moz-transition: all 2s;
+					-ms-transition: all 2s;
+						transition: all 2s;
+		}
+		.wrap div {
+			position: absolute;
+		}
+		.t1 {
+			-webkit-transform: translateZ(100px);
+				-moz-transform: translateZ(100px);
+					-ms-transform: translateZ(100px);
+						transform: translateZ(100px);
+		}
+		.t2 {
+			-webkit-transform: translateZ(-100px);
+				-moz-transform: translateZ(-100px);
+					-ms-transform: translateZ(-100px);
+						transform: translateZ(-100px);
+		}
+		.t3 {
+			-webkit-transform: rotateY(90deg) translateZ(100px);
+				-moz-transform: rotateY(90deg) translateZ(100px);
+					-ms-transform: rotateY(90deg) translateZ(100px);
+						transform: rotateY(90deg) translateZ(100px);
+		}
+		.t4 {
+			-webkit-transform: rotateY(90deg) translateZ(-100px);
+				-moz-transform: rotateY(90deg) translateZ(-100px);
+					-ms-transform: rotateY(90deg) translateZ(-100px);
+						transform: rotateY(90deg) translateZ(-100px);
+		}
+		.t5 {
+			-webkit-transform: rotateX(90deg) translateZ(100px);
+				-moz-transform: rotateX(90deg) translateZ(100px);
+					-ms-transform: rotateX(90deg) translateZ(100px);
+						transform: rotateX(90deg) translateZ(100px);
+		}
+		.t6 {
+			-webkit-transform: rotateX(90deg) translateZ(-100px);
+				-moz-transform: rotateX(90deg) translateZ(-100px);
+					-ms-transform: rotateX(90deg) translateZ(-100px);
+						transform: rotateX(90deg) translateZ(-100px);
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="t1" style="background: red;">1</div>
+		<div class="t2" style="background: green;">2</div>
+		<div class="t3" style="background: blue;">3</div>
+		<div class="t4" style="background: yellow;">4</div>
+		<div class="t5" style="background: orange;">5</div>
+		<div class="t6" style="background: purple;">6</div>
+	</div>
+</body>
+<script type="text/javascript">
+	// var angel1 = Math.floor(Math.random()*720+360);
+	// var angel2 = Math.floor(Math.random()*720+360);
+	// console.log(angel1, angel2);
+	$(".wrap").hover(function(){
+		$(this).css({
+			// "transform" : "rotateX(360deg) rotateY(360deg)"
+			"transform" : "rotateX(" + Math.floor(Math.random()*720+360) + "deg) rotateY(" + Math.floor(Math.random()*720+360) + "deg)"
+		})
+	}, function(){
+		$(this).css({
+			"transform" : "rotateX(0deg) rotateY(0deg)"
+		})
+	})
+</script>
+</html>

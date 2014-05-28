@@ -1,0 +1,45 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>test</title>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		/*body {
+			height: 1200px;
+			width: 1600px;
+		}*/
+		.test {
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 100px;
+			width: 100px;
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="test" class="test"></div>
+</body>
+<script>
+	var test = document.getElementById("test");
+	var posX = 0;
+	var posY = 0;
+
+	window.onload = function(){
+		changePos();
+	}
+	window.onresize = function(){
+		changePos();
+	}
+	function changePos(){
+		var posX = (document.documentElement.clientWidth - test.offsetWidth) / 2;
+		var posY = (document.documentElement.clientHeight - test.offsetHeight) / 2;
+		test.style.left = posX + "px";
+		test.style.top = posY + "px";
+	}
+</script>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<style>
+		html, body, div, img, input {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			margin: 50px auto;
+			height: 100px;
+			width: 100px;
+			border: 5px solid #CCF;
+			overflow: hidden;
+		}
+		.wrap img {
+			float: left;
+			height: 100px;
+			width: 100px;
+		}
+		.box {
+			height: 100px;
+			width: 600px;
+		}
+		input {
+			position: absolute;
+			top: 80px;
+			height: 50px;
+			width: 100px;
+		}
+		.put-1 {
+			left: 500px;
+		}
+		.put-2 {
+			right: 500px;
+		}
+	</style>
+	<script type="text/javascript" src="tween.js"></script>
+</head>
+<body>
+	<input class="put-1" type="button" value="turnLeft">
+	<input class="put-2" type="button" value="turnRight">
+	<div id="wrap" class="wrap">
+		<div id="box" class="box">
+			<img src="dd_1.png" alt="" title="">
+			<img src="dd_2.png" alt="" title="">
+			<img src="dd_3.png" alt="" title="">
+			<img src="dd_4.png" alt="" title="">
+			<img src="dd_5.png" alt="" title="">
+			<img src="dd_6.png" alt="" title="">
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var btn = document.getElementsByTagName("input");
+	var wrap = document.getElementById("wrap");
+	var box = document.getElementById("box");
+	var timer = null;
+	var timer1 = null;
+	var nowNum = 0;
+	var imgWidth = 100;
+
+	btn[1].onclick = function(){
+		if (timer1) {
+			clearInterval(timer1);
+		};
+		if (timer) {
+			clearInterval(timer);
+		};
+		nowNum++;
+		if (nowNum >= 6) {
+			nowNum = 0;
+		};
+		moveTo(nowNum*imgWidth);
+		timer = setInterval(autoRun, 2000);
+	}
+	btn[0].onclick = function(){
+		if (timer1) {
+			clearInterval(timer1);
+		};
+		if (timer) {
+			clearInterval(timer);
+		};
+		nowNum--;
+		if (nowNum < 0) {
+			nowNum = 5;
+		};
+		moveTo(nowNum*imgWidth);
+		timer = setInterval(autoRun, 2000);
+	}
+
+
+
+
+
+
+
+
+	timer = setInterval(autoRun, 2000);
+
+	function autoRun(){
+		if (timer1) {
+			clearInterval(timer1)
+		};
+		nowNum++;
+		if (nowNum == 6) {
+			nowNum = 0;
+		};	
+		moveTo(nowNum*imgWidth);		// 调用每按一下跳一张图的计时器
+	}
+
+	function moveTo(end){
+			var startPos = wrap.scrollLeft;		// 获取当前滚动的位置
+			var endPos = end;
+			var step = 0;
+			var stepMax = 35;		// 每次步长都不一样，每一步都需要计算————计时器  当step达到stepMax的时候急速运动
+			var endPos = nowNum*100;
+
+			timer1 = setInterval(move, 20);
+
+			function move(){
+				step++;
+				if (step == stepMax) {
+					clearInterval(timer1)
+				};
+				wrap.scrollLeft = Tween.Bounce.easeOut(step, startPos, endPos - startPos, stepMax);
+			}
+		}	
+
+
+	var Tween = {
+			Bounce: {
+				easeIn: function(t,b,c,d){
+					return c - Tween.Bounce.easeOut(d-t, 0, c, d) + b;
+				},
+				easeOut: function(t,b,c,d){
+					if ((t/=d) < (1/2.75)) {
+						return c*(7.5625*t*t) + b;
+					} else if (t < (2/2.75)) {
+						return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+					} else if (t < (2.5/2.75)) {
+						return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+					} else {
+						return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+					}
+				},
+				easeInOut: function(t,b,c,d){
+					if (t < d/2) return Tween.Bounce.easeIn(t*2, 0, c, d) * .5 + b;
+					else return Tween.Bounce.easeOut(t*2-d, 0, c, d) * .5 + c*.5 + b;
+				}
+			}
+		}
+
+</script>
+</html>

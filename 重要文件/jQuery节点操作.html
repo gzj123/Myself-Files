@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery——DOM操作</title>
+	<script src="jQuery.js"></script>
+	<style>
+		.wrap {
+			height: 400px;
+			width: 400px;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<p id="p">这是为添加任何节点的div</p>
+	</div>
+</body>
+<script>
+	var p = document.getElementById("p");
+	// 插入节点
+
+	// jQuery添加节点 —— append() 向每个匹配元素内部末尾追加内容。
+	// appendTo()  将所有匹配元素追加到指定的元素当中（与append()相反）
+	$(function(){
+		var text = $("<div class='test'>jQuery——append()添加节点</div>");
+		$("#wrap").append(text);
+	})
+	// 原生JS添加节点]
+	var wrap = document.getElementById("wrap");
+	var newEle = document.createElement("div");
+	var newText = document.createTextNode("appendChild()原生JS添加节点");
+	newEle.appendChild(newText);
+	wrap.appendChild(newEle);
+
+	$("#wrap").prepend("<p><strong>prepend()向每个匹配元素内部前置内容</strong></p>");
+	$("<p><strong>prependTo()向每个匹配元素内部前置内容</strong></p>").prependTo("#wrap");
+	// wrap.insertBefore(newEle, p);	—— 原生JS DOM在目标节点之前添加节点：父节点.insertBefore(添加的节点，目标节点)；
+
+	$("#wrap").after("after()在每个匹配的元素后面插入内容");
+	$("<p>insertAfter()将匹配的元素追加到指定的元素后面，颠倒after方法</p>").insertAfter("#wrap");
+
+	$("#wrap").before("<p>before()在每个匹配元素之前插入内容</p>");
+	$("<p>insertBefore()将匹配元素追加到指定元素之前，与before()颠倒</p>").insertBefore("#wrap");
+
+
+	// 删除节点 remove()   empty()   detach()   三者全部删除文本域与子节点。
+	// $("#p").remove();		// 删除元素本身	同时删除绑定事件和jquery相关数据
+	// $("#p").empty();			// 不删除元素本身  不删除绑定事件和jquery相关数据
+	// $("#p").detach();		// 删除元素本身  不删除绑定事件和jquery相关数据
+</script>
+</html>

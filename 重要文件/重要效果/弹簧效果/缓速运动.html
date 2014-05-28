@@ -1,0 +1,70 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>缓速运动</title>
+	<style>
+		html, body, div, input {
+			margin: 0;
+			padding: 0;
+		}
+		.test {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			background: red;
+		}
+		.line {
+			position: absolute;
+			left: 600px;
+			height: 100px;
+			width: 1px;
+			background: blue;
+		}
+	</style>
+	<script type="text/javascript" src="tween.js"></script>
+</head>
+<body>
+	<input id="btn" type="button" value="点击">
+	<div id="test" class="test"></div>
+	<div class="line"></div>
+</body>
+<script>
+	var btn = document.getElementById("btn");
+	var test = document.getElementById("test");
+	var timer = null;
+	var timer1 = null;
+	var startPos = 0;
+	var endPos = 600;		// 运动结束的终点
+
+	// var b=0,c=600,d=300,t=0,speed=3;
+	btn.onclick = function(){
+		// timer1 = setInterval(run, 500);
+		run();
+	}
+	// function runF(){ 
+	// 	startPos ++;		// 运动逐步增加 1px
+	// 	var step = (endPos - startPos)/20;		// 运动的步长，随着每次步长的增加，步长值会慢慢变小
+	// 	if (step == 0) {
+	// 			clearInterval(timer);			// 当步长值等于 0 的时候，endPos和startPos的值相等，所以运动停止，清计时
+	// 		} else if (step > 0) {
+	// 			step = Math.ceil(step);			
+	// 		} else if (step < 0) {
+	// 			step =Math.floor(step);
+	// 		};
+	// 		startPos += step;					// 每次运动逐步增加步长，因为步长值越来越小，所以每次运动增加的距离也就越来越小
+	// 	test.style.left =  startPos + "px";		// 每次运动越来越小的距离，就呈现出缓动效果。
+	// 	console.log(startPos);
+	// }
+	var b=0 , c=600, d=300, t=0, speed=3; //speed 步长   b 初始位置   d  持续时间   c change 变化量   t初始
+	function run(){  
+   		test.style.left = Math.ceil(Tween.Bounce.easeOut(t,b,c,d)) + "px";  
+    	if(t<d){ t += speed; setTimeout(run, 10); }  
+	}  
+	// run();
+	// function move(){
+	// 	test.style.left = Math.ceil(Tween.Quad.easeOut(t,b,c,d)) + "px";  
+    //	if(t<d){ t += speed; setTimeout(run, 10); }  
+	// }
+	// move();
+</script>
+</html>

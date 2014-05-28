@@ -1,0 +1,73 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>test</title>
+	<style>
+		*{margin: 0; padding: 0;}
+		.test {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			background-color: red;
+		}
+		.line {
+			position: absolute;
+			left: 600px;
+			height: 100px;
+			width: 2px;
+			background: green;
+		}
+		.wrap {
+			height: 100px;
+			width: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<div id="test" class="test"></div>
+		<div id="line" class="line"></div>
+	</div>
+</body>
+<script>
+	var test = document.getElementById('test');
+	var timer = null;
+	var timer2 = null;
+	var startPos = 0;
+	var start = 0;
+	var endPos = 600;
+
+	wrap.onmouseover = function(){ 
+		if (timer) {
+			clearInterval(timer);
+		};
+		timer = setInterval(run, 20);
+	}
+	test.onclick = function(){
+		timer2 = setInterval(run2, 20);
+	}
+	function run2(){
+		//console.log(test.style.left);
+		var left = parseInt(document.defaultView.getComputedStyle(test).left);
+		left--;
+		test.style.left = left  + "px";
+	}
+	function run(){
+		startPos ++;		// 运动逐步增加 1px
+		var step = (endPos - startPos)/20;		// 运动的步长，随着每次步长的增加，步长值会慢慢变小
+		if (step == 0) {
+				clearInterval(timer);			// 当步长值等于 0 的时候，endPos和startPos的值相等，所以运动停止，清计时
+			} else if (step > 0) {
+				step = Math.ceil(step);			
+			} else if (step < 0) {
+				step =Math.floor(step);
+			};
+			if (startPos >= 600) {
+				clearInterval(timer);
+			};
+			startPos += step;					// 每次运动逐步增加步长，因为步长值越来越小，所以每次运动增加的距离也就越来越小
+		test.style.left =  startPos + "px";		// 每次运动越来越小的距离，就呈现出缓动效果。
+		console.log(startPos);
+	}
+</script>
+</html>

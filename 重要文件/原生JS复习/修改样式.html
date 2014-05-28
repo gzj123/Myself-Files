@@ -1,0 +1,37 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>修改样式</title>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		.test {
+			height: 100px;
+			width: 100px;
+			background-color: #CCC;
+		}
+		.select {
+			height: 200px;
+			width: 100px;
+			background-color: #EEF;
+		}
+	</style>
+</head>
+<body>
+	<div id="test" class="test"></div>
+</body>
+<script>
+	var test = document.getElementById("test");
+	var divHeight = parseInt(document.defaultView.getComputedStyle(test).height);
+	console.log(divHeight);
+	console.log(test.style.height);  	//出来的值为空
+
+	test.onclick = function(){
+		test.style.backgroundColor = "#ABF";
+		test.style.height = "200px";
+		this.className = "select";		// 通过修改类名
+	}
+</script>
+</html>

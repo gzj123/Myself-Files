@@ -1,0 +1,55 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>计时器_秒表</title>
+	<script src="code.js"></script>
+</head>
+<body>
+	<input id="btn" type="button" name="" value="开始">
+	<span>00</span>
+	<span>:</span>
+	<span>00</span>
+	<span>:</span>
+	<span>00</span>
+</body>
+<script>
+	var btn = document.getElementById("btn");
+	var spans = document.getElementsByTagName('span');
+	var timer = null;
+	var millsecond = 0;
+	var second = 0;
+	var minute = 0;
+	btn.onclick = function(){
+		if (timer) {
+			clearInterval(timer);
+		};
+		
+		if (this.value == "开始") {
+			this.value = "停止";
+			timer = setInterval(run, 20);
+		} else {
+			this.value = "开始";
+		};
+	}
+	function run(){
+		millsecond++;
+		if (millsecond >= 100) {
+			second++;
+			millsecond = 0;
+		};
+		if (second >= 60) {
+			minute++;
+			second = 0;
+		};
+		// 没调用库的时候的写法
+		// if (second < 10) {
+		// 	spans[2].innerHTML = "0" + second;
+		// } else {
+		// 	spans[2].innerHTML = second;
+		// };
+		changeTime(spans[0], minute);
+		changeTime(spans[2], second);
+		changeTime(spans[4], millsecond);
+	}
+</script>
+</html>

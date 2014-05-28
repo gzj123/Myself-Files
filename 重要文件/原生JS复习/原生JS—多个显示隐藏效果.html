@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<script type="text/javascript" src="jQuery.js"></script>
+	<style>
+		*{margin: 0;padding: 0;}
+		.wrap {
+			margin: 50px auto;
+			padding: 10px 0 10px 10px;
+			height: 210px;
+			width: 330px;
+			border: 1px solid red;
+		}
+		.wrap div {
+			position: relative;
+			float: left;
+			margin: 0 10px 10px 0;
+			height: 100px;
+			width: 100px;
+			background-color: #CCC;
+			overflow: hidden;
+		}
+		span {
+			position: absolute;
+			bottom: -30px;
+			height: 30px;
+			width: 100px;
+			background-color: #CFC;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap" class="wrap">
+		<div><span>1</span></div>
+		<div><span>2</span></div>
+		<div><span>3</span></div>
+		<div><span>4</span></div>
+		<div><span>5</span></div>
+		<div><span>6</span></div>
+	</div>
+</body>
+<script type="text/javascript">
+	var wrap = document.getElementById("wrap");
+	var divs = wrap.getElementsByTagName("div");
+	var spans = wrap.getElementsByTagName("span");
+	var timeUp = null;
+	var timeDown = null;
+	var nowNum = 0;
+	var up = true;
+
+	for (var i = 0; i < divs.length; i++) {
+		divs[i].index = i;
+		divs[i].onmouseover = function(){
+			this.up = true;
+			divUp(this);
+		}
+		divs[i].onmouseout = function(){
+			this.up = false;
+			divDown(this);
+		}
+	};
+	function divDown(ele){
+		var timerDown = null;
+		var divHeight2;
+		if (!document.defaultView) {
+			divHeight2 = parseInt(spans[ele.index].currentStyle["bottom"])
+		} else {
+			divHeight2 = parseInt(document.defaultView.getComputedStyle(spans[ele.index]).bottom)
+		}
+		timerDown = setInterval(function(){
+			if (!ele.up) {
+				divHeight2--;
+				if (divHeight2 <= -30) {
+					clearInterval(timerDown);
+				} else {
+					spans[ele.index].style.bottom = divHeight2 + "px";
+				}
+			} else {
+				clearInterval(timerDown);
+			}
+		}, 20)
+	}
+	function divUp(ele){
+		var timerUp = null;
+		var divHeight;
+		if (!document.defaultView) {
+			divHeight = parseInt(spans[ele.index].currentStyle["bottom"])
+		} else {
+			divHeight = parseInt(document.defaultView.getComputedStyle(spans[ele.index]).bottom)
+		}
+		timerUp = setInterval(function(){
+			if (ele.up) {
+				divHeight++;
+				if (divHeight >= 0) {
+					clearInterval(timerUp);
+				} else {
+					spans[ele.index].style.bottom = divHeight + "px";
+				}
+			} else {
+				clearInterval(timerUp);
+			}
+		}, 20)
+	}	
+
+	// $(".wrap div").mouseenter(function(){
+	// 	$("span").eq($(this).index()).stop().animate({
+	// 		"bottom" : "0"
+	// 	})
+	// }).mouseleave(function(){
+	// 	$("span").eq($(this).index()).stop().animate({
+	// 		"bottom" : "-30px"
+	// 	})
+	// })
+</script>
+</html>

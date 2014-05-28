@@ -1,0 +1,23 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>DOM节点</title>
+</head>
+<body>
+	<div id="tit">h1标签</div>
+	<p>p标签</p>
+</body>
+<script>
+	var tit = document.getElementById("tit");
+	var newText = document.createTextNode("杰");
+	var newEle = document.createElement("h1");
+
+	newEle.appendChild(newText);
+	// tit.appendChild(newEle);      //—— 表示放到 tit这个div 里面
+	// document.body.insertBefore(newEle, tit);     // —— 把 newEle 放到targetNode 目标节点的前面
+	// document.body.replaceChild(newEle, tit);		// —— 把oldNode 替换成 newNode
+	// document.body.removeChild(tit);					// —— 移除目标节点
+
+
+</script>
+</html>

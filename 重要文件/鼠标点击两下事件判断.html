@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5</title>
+	<style>
+		*{margin: 0; padding: 0;}
+		/*body {
+			-webkit-transform-style: preserve-3d;
+		}
+		p {
+			text-align: center;
+			font-size: 30px;
+			text-shadow: 0px 0 5px red, 0px 0 5px green;
+		}*/
+		.wrap {
+			margin: 50px auto;
+			position: relative;
+			height: 100px;
+			width: 100px;
+			border: 1px solid green;
+			-webkit-transition: all 1s ease-in-out;
+			-webkit-transform-style: preserve-3d;
+		}
+		.test, .test1 {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			border: 1px solid red;
+			-webkit-backface-visibility: hidden;
+		}
+		.test1 {
+			-webkit-transform: rotateX(180deg);
+		}
+		/*.test:hover {
+			-webkit-transform: rotate(360deg);
+		}*/
+	</style>
+</head>
+<body>
+<!-- 	<p>这是一段文本</p> -->
+	<div class="wrap" id="wrap">
+		<div id="test" class="test">1</div>
+		<div id="test1" class="test1">2</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var test = document.getElementById("test");
+	var wrap = document.getElementById("wrap");
+	var con = 0,click=true;
+
+	function fun1(){
+		if (click) {
+			wrap.style.webkitTransform = "rotateX(180deg)";
+		} 
+		if (click==false) {
+			wrap.style.webkitTransform = "rotateX(360deg)";
+		}
+
+		click = click?false:true;
+	}
+
+
+	addEventListener('click', fun1, false);
+</script>
+</html>

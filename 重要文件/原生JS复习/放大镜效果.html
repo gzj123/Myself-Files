@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>放大镜效果</title>
+	<style>
+		html, body, div {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap, .show {
+			position: relative;
+			float: left;
+			margin: 50px 10px 0 0 ;
+			height: 400px;
+			width: 400px;
+			border: 5px solid #CCC;
+			overflow: hidden;
+		}
+		.show {
+			display: none;
+		}
+		.wrap img {
+			height: 400px;
+			width: 400px;
+		}
+		.show img {
+			height: 1600px;
+			width: 1600px;
+		}
+		.drag {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100px;
+			width: 100px;
+			background-color: #000;
+			opacity: 0.5;
+			filter: alpha(opacity = 0.5);
+			cursor: move;
+		}
+	</style>
+</head>
+<body>
+	<p>	
+		放大镜的原理在于：右边的放大框的宽高是左边的浮动层的宽高的倍数
+		同理，img的宽高也要使用这个倍数来设置
+	</p>
+	<div id="wrap" class="wrap">
+		<div class="drag" id="drag"></div>
+		<img src="images/123.jpg" alt="" title="">
+	</div>
+	<div id="show" class="show">
+		<img src="images/123.jpg" alt="" title="">
+	</div>
+</body>
+<script type="text/javascript">
+	var wrap = document.getElementById("wrap");
+	var show = document.getElementById("show");
+	var drag = document.getElementById("drag");
+
+	wrap.onmousemove = function(e){
+		drag.style.display = "block";
+		show.style.display = "block";
+		var e = e || window.event;
+		var startPosY = e.clientY - wrap.offsetTop - (drag.offsetHeight/2);	
+		var startPosX = e.clientX - wrap.offsetLeft - (drag.offsetWidth/2);
+		if (startPosY >= wrap.clientHeight - drag.offsetHeight) {
+			startPosY = wrap.clientHeight - drag.offsetHeight;
+		};	 	
+		if (startPosY <= 0) {
+			startPosY = 0;
+		};
+		if (startPosX >= wrap.clientWidth - drag.offsetWidth) {
+			startPosX = wrap.clientWidth - drag.offsetWidth;
+		};
+		if (startPosX <= 0) {
+			startPosX = 0;
+		};
+		drag.style.top = startPosY + "px";		// 去掉wrap的offsetTop和一半的drag高，剩下的就是drag的 top 的值
+		drag.style.left = startPosX + "px";		
+		var num = show.offsetWidth / drag.offsetWidth;
+		show.scrollTop = drag.offsetTop * num;		// num 是两个 img 和 show与drag的倍数
+		show.scrollLeft = drag.offsetLeft * num;
+	}
+	wrap.onmouseout = function(){
+		drag.style.display = "none";
+		show.style.display = "none";
+	}
+
+</script>
+</html>

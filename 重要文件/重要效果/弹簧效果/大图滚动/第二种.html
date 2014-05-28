@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>H5course</title>
+	<link rel="stylesheet" href="reset.css">
+	<style>
+		.imgview{
+			width: 255px;
+			height: 255px;
+			margin: 50px auto;
+			overflow: hidden;
+		}
+		.imgview img{
+			width: 260px;
+			height: 255px;
+		}
+		.imgview-nav{
+			width: 255px;
+			margin: 10px auto;
+			border: 1px solid red;
+			list-style-type: none;
+		}
+		.imgview-nav li{
+			float: left;
+			width: 15px;
+			height: 15px;
+			border:  1px solid blue;
+			margin: 10px;
+		}
+		.wrap {
+			width: 127px;
+			height: 255px;
+			margin: 0 auto;
+		}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="imgview" id="imgs">
+			<table  cellspacing="0" cellpadding="0">
+				<tr>
+					<td><img src="classma/1.jpg" alt=""></td>
+					<td><img src="classma/2.jpg" alt=""></td>
+					<td><img src="classma/3.jpg" alt=""></td>
+					<td><img src="classma/4.jpg" alt=""></td>
+				</tr>
+			</table>
+		</div>
+		<ul class="imgview-nav" id="imgNav">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+</body>
+<script>
+	var imgs = document.getElementById('imgs');
+	var imgNav = document.getElementById('imgNav').getElementsByTagName('li');
+	var timer = null;
+	var num = 0;
+	var timer2 = null;
+	var len = imgNav.length;
+	// for (var i = 0; i < len; i++) {
+	// 	imgNav[i].index = i;
+	// 	imgNav[i].onclick = function(){
+	// 		num = this.index;
+	// 		clearInterval(timer);
+	// 		timer = setInterval(move,30);
+	// 	}
+	// };
+	var step = 0;
+	function move (){
+		if (timer2) {
+			clearInterval(timer2);
+		};
+		var start = imgs.scrollLeft;
+		var stop = num * 255;
+		step++;
+		var stepMax = 25;
+		
+		imgs.scrollLeft = Tween.Bounce.easeOut(step,start,stop - start,stepMax);
+		timer2 = setInterval(change,3000);
+		if (step == stepMax) {
+			clearInterval(timer);
+			step = 0;
+		};
+	}
+
+
+	timer2 = setInterval(change,3000);
+
+	function change(){
+		clearInterval(timer);
+		num++;
+		if (num == len) {
+			num = 0;
+		};
+		timer = setInterval(move,16);
+	}
+
+
+	var Tween = {
+		Bounce: {
+			easeIn: function(t,b,c,d){
+				return c - Tween.Bounce.easeOut(d-t, 0, c, d) + b;
+			},
+			easeOut: function(t,b,c,d){
+				if ((t/=d) < (1/2.75)) {
+					return c*(7.5625*t*t) + b;
+				} else if (t < (2/2.75)) {
+					return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+				} else if (t < (2.5/2.75)) {
+					return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+				} else {
+					return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+				}
+			},
+			easeInOut: function(t,b,c,d){
+				if (t < d/2) return Tween.Bounce.easeIn(t*2, 0, c, d) * .5 + b;
+				else return Tween.Bounce.easeOut(t*2-d, 0, c, d) * .5 + c*.5 + b;
+			}
+		}
+	}
+</script>
+</html>
